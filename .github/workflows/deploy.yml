@@ -1,9 +1,12 @@
+permissions:
+  contents: write
+
 name: CI/CD Pipeline
 
 on:
   push:
     branches:
-      - main   # change to 'master' if your repo uses master
+      - main
 
 jobs:
   build-and-deploy:
