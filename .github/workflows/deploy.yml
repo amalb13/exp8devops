@@ -1,27 +1,24 @@
-# Give GitHub Actions permission to push
 permissions:
-  contents: write
+  contents: write  # allows GitHub Actions to push
 
-# Name of the workflow
 name: CI/CD Pipeline
 
-# Trigger on push to main branch
 on:
   push:
     branches:
-      - main  # change to 'master' if your main branch is called master
+      - main  # change to 'master' if needed
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repo
+      # Step 1: Checkout your repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Optional - list all files (helpful to debug)
-      - name: List all files
+      # Step 2: Optional - list all files (debug)
+      - name: List files
         run: ls -R
 
       # Step 3: Deploy the 'exp 8' folder to GitHub Pages
@@ -29,4 +26,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./exp 8   # <-- folder containing your index.html
+          publish_dir: ./exp 8   # folder containing your index.html
+          force_orphan: true      # forces a full overwrite of gh-pages branch
