@@ -1,26 +1,32 @@
+# Give GitHub Actions permission to push
 permissions:
   contents: write
 
+# Name of the workflow
 name: CI/CD Pipeline
 
+# Trigger on push to main branch
 on:
   push:
     branches:
-      - main
+      - main  # change to 'master' if your main branch is called master
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      # Step 1: Checkout the repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Print files
-        run: ls -la
+      # Step 2: Optional - list all files (helpful to debug)
+      - name: List all files
+        run: ls -R
 
+      # Step 3: Deploy the 'exp 8' folder to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+          publish_dir: ./exp 8   # <-- folder containing your index.html
